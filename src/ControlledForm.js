@@ -10,12 +10,14 @@ const ControlledForm = ({ submitPerson }) => {
     email: "",
   });
 
+  const resetForm = () => setPerson({ alias: "", description: "", email: "" });
+
   const handleChange = (e) =>
     setPeron({ ...person, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitPerson(person);
+    submitPerson(person, resetForm);
   };
 
   return (
@@ -28,6 +30,7 @@ const ControlledForm = ({ submitPerson }) => {
           type="text"
           className="form-control"
           name="alias"
+          value={person.alias}
           onChange={handleChange}
         />
       </div>
@@ -39,6 +42,7 @@ const ControlledForm = ({ submitPerson }) => {
           type="text"
           className="form-control"
           name="description"
+          value={person.description}
           onChange={handleChange}
         />
       </div>
@@ -50,6 +54,7 @@ const ControlledForm = ({ submitPerson }) => {
           type="email"
           className="form-control"
           name="email"
+          value={person.email}
           onChange={handleChange}
         />
       </div>
@@ -64,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitPerson: (person) => dispatch(submitPerson(person)),
+    submitPerson: (person, reset) => dispatch(submitPerson(person, reset)),
   };
 };
 
