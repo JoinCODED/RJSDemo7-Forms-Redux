@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { submitPerson } from "./redux/actions";
 
-const ControlledForm = ({ submitPerson }) => {
+const ControlledForm = ({ submitPerson, errors }) => {
   const [person, setPerson] = useState({
     alias: "",
     description: "",
@@ -28,11 +28,12 @@ const ControlledForm = ({ submitPerson }) => {
         </div>
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${errors.alias && "is-invalid"}`}
           name="alias"
           value={person.alias}
           onChange={handleChange}
         />
+        <div className="invalid-feedback">{errors.alias}</div>
       </div>
       <div className="input-group mb-3">
         <div className="input-group-prepend">
@@ -40,11 +41,12 @@ const ControlledForm = ({ submitPerson }) => {
         </div>
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${errors.description && "is-invalid"}`}
           name="description"
           value={person.description}
           onChange={handleChange}
         />
+        <div className="invalid-feedback">{errors.description}</div>
       </div>
       <div className="input-group mb-3">
         <div className="input-group-prepend">
@@ -52,11 +54,12 @@ const ControlledForm = ({ submitPerson }) => {
         </div>
         <input
           type="email"
-          className="form-control"
+          className={`form-control ${errors.email && "is-invalid"}`}
           name="email"
           value={person.email}
           onChange={handleChange}
         />
+        <div className="invalid-feedback">{errors.email}</div>
       </div>
       <input className="btn btn-outline-dark" type="submit" />
     </form>
@@ -64,7 +67,9 @@ const ControlledForm = ({ submitPerson }) => {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    errors: state.errors,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

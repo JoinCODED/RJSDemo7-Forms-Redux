@@ -1,4 +1,4 @@
-import { FETCH_PEOPLE } from "../actions/actionTypes";
+import { FETCH_PEOPLE, ADD_PERSON } from "../actions/actionTypes";
 
 const initialState = {
   people: []
@@ -11,7 +11,7 @@ const peopleReducer = (state = initialState, action) => {
         ...state,
         people: action.payload
       };
-    case actionTypes.SUBMIT_PERSON:
+    case ADD_PERSON:
       return {
         ...state,
         people: [action.payload, ...state.people]
